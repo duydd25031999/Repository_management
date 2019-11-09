@@ -1,56 +1,27 @@
 <template>
   <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
-
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
-
-      <v-spacer></v-spacer>
-
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
-    </v-app-bar>
-
-    <v-content>
-      <HelloWorld/>
+    <AppHeader/>
+    <v-content class="app-content">
+      <UserMeta/>
+      <RepositoriesList/>
     </v-content>
   </v-app>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld';
+import AppHeader from './components/common/AppHeader';
+import UserMeta from './components/user/UserMeta'
+import RepositoriesList from './components/repository/RepositoriesList'
 
 export default {
   name: 'App',
 
   components: {
     HelloWorld,
+    AppHeader,
+    UserMeta,
+    RepositoriesList
   },
 
   data: () => ({
@@ -58,3 +29,12 @@ export default {
   }),
 };
 </script>
+
+<style scoped>
+.app-content {
+  margin: 0 auto;
+  width: 1000px;
+  max-width: 1100px;
+  min-width: 950px;
+}
+</style>
