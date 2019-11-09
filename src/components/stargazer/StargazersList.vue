@@ -3,7 +3,7 @@
         <template v-for="i in 10">
              <StargazerMeta :key="'star-' + i"/>
         </template>
-        <v-btn block text>Load More Stargazers</v-btn>
+        <v-btn block text :disabled="disabledBtn">Load More Stargazers</v-btn>
     </div>
 </template>
 
@@ -13,7 +13,12 @@ import StargazerMeta from './StargazerMeta'
 export default {
     components : {
         StargazerMeta
-    }
+    },
+    computed: {
+      disabledBtn() {
+          return this.$store.getters["loading/isLoading"]; 
+      }  
+    },
 }
 </script>
 

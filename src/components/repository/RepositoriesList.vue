@@ -3,7 +3,7 @@
         <template v-for="i in 10">
             <RepositoryItem :key="'repo-' + i"/>
         </template>
-        <v-btn block>Load More Repositories</v-btn>
+        <v-btn block :disabled="disabledBtn">Load More Repositories</v-btn>
     </div>
 </template>
 
@@ -12,6 +12,11 @@ import RepositoryItem from './RepositoryItem'
 export default {
     components: {
         RepositoryItem
+    },
+    computed: {
+        disabledBtn() {
+            return this.$store.getters["loading/isLoading"]; 
+        }  
     }
 }
 </script>

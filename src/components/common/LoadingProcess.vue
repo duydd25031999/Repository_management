@@ -16,7 +16,7 @@
 export default {
     computed: {
         showLoading() {
-            return true;
+            return this.$store.getters["loading/isLoading"];
         },
         value() {
             return 70
