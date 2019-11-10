@@ -45,6 +45,7 @@ export default {
         },
         CLEAR_PAGE: (state) => {
             state.page = 0
+            state.repositories = []
         }
     },
     actions: {
