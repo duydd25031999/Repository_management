@@ -3,7 +3,7 @@
         <v-flex xs6>({{ index }}) : {{ repository.name }}</v-flex>
         <v-flex xs3>stargazers : {{ repository.totalStargazers }}</v-flex>
         <v-flex xs3>
-            <v-btn v-if="!hasList" @click="listStar()">List Stargazers</v-btn>
+            <v-btn :disabled="disableBtn" v-if="!hasList" @click="listStar()">List Stargazers</v-btn>
         </v-flex>
     </v-layout>
 </template>
@@ -17,12 +17,16 @@ export default {
     data: () => ({
         hasList: false
     }),
+    computed: {
+        /**@returns {Boolean} */
+        disableBtn() {
+            return this.$store.getters["loading/isLoading"]
+        }
+    },
     methods: {
         async listStar() {
-            console.log("before", this.repository)
             this.repository.clearPage()
             await this.$store.dispatch("stargazer/getStargazersByPage", this.repository)
-            console.log("after", this.repository)
             this.hasList = true
         }
     }

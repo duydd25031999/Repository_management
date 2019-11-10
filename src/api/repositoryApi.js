@@ -1,4 +1,4 @@
-import testRepos from './testRepos'
+import ApiBuilder from './ApiBuilder'
 
 export default {
     /**
@@ -8,9 +8,6 @@ export default {
      * @returns {Promise}
      */
     getRepoPage(userName, page) {
-        if(page == 1) {
-            return testRepos.page1()
-        }
-        return testRepos.page2()
+        return ApiBuilder().get(`users/${userName}/repos?page=${page}&per_page=30`)
     }
 }

@@ -1,6 +1,6 @@
 <template>
     <div v-if="showLoading" class="pa-0 ma-0">
-        <v-progress-circular
+        <!-- <v-progress-circular
             :rotate="360"
             :size="50"
             :width="5"
@@ -8,7 +8,14 @@
             color="teal"
         >
             {{ value }}%
-        </v-progress-circular>
+        </v-progress-circular> -->
+        <v-progress-circular
+            :rotate="360"
+            :size="50"
+            :width="5"
+            indeterminate
+            color="teal"
+        />
     </div>
 </template>
 
@@ -19,7 +26,7 @@ export default {
             return this.$store.getters["loading/isLoading"];
         },
         value() {
-            return 70
+            return this.$store.getters["loading/progress"];
         }
     }
 }

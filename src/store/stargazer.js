@@ -14,22 +14,29 @@ export default {
          * @param {Repository} repository 
          * @returns {Promise}
          */
-        getStargazersByPage: (context, repository) => {
+        getStargazersByPage: async (context, repository) => {
             if(repository.isLastPage) {
                 return new Promise()
             }
             /**@type {Array<Stargazer>} */
             let bufferArr = []
 
-            let process = stargazerApi.getStarPage(repository.full_name, repository.nextPage).then(response => {
-                if(response) {
-                    response.forEach(item => {
+            context.commit("loading/LOAD_API", undefined, { root: true })
+
+            let api = stargazerApi.getStarPage(repository.full_name, repository.nextPage)
+            let process =  api.then(response => {
+                if(response.data) {
+                    response.data.forEach(item => {
                         let stargarzer = new Stargazer(item)
                         bufferArr.push(stargarzer)
                     })
                 }
-                console.log("getStargazersByPage", bufferArr)
                 repository.addStargazerPage(bufferArr)
+            })
+
+            //when finish api (success or not) => close loading
+            process.finally(() => {
+                context.commit("loading/FINISH_API", undefined, { root: true })
             })
             return process
         }

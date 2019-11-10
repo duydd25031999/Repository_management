@@ -1,11 +1,23 @@
 export default {
     namespaced: true,
     state: {
-        loading: false
+        /**@type {Boolean} */
+        loading: false,
+        /**@type {Number} */
+        progress: 0
     },
     getters: {
-        isLoading: state => state.loading
+        isLoading: state => state.loading,
+        progress: state => state.progress
     },
-    mutations: {},
+    mutations: {
+        LOAD_API(state) {
+            state.loading = true
+        },
+        FINISH_API(state) {
+            state.loading = false
+            state.progress = 0
+        }
+    },
     actions: {}
 }

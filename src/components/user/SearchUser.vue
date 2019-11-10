@@ -4,7 +4,7 @@
             placeholder="Input Github Account"
             v-model="txtSearch"
         ></v-text-field>
-        <v-btn text icon @click="getUser()">
+        <v-btn :disabled="disableBtn" text icon @click="getUser()">
             <v-icon>mdi-television</v-icon>
         </v-btn>
     </v-layout>
@@ -16,7 +16,12 @@ export default {
         /**@type {String} */
         txtSearch: ""
     }),
-    computed: {},
+    computed: {
+        /**@returns {Boolean} */
+        disableBtn() {
+            return this.$store.getters["loading/isLoading"]
+        }
+    },
     methods: {
         async getUser() {
             await this.$store.dispatch("user/getUser", this.txtSearch)

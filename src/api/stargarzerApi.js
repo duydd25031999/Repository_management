@@ -1,4 +1,5 @@
-import testStar from './testStar'
+import ApiBuilder from './ApiBuilder'
+import config from './config'
 export default {
     /**
      * get list stargazers by page
@@ -7,9 +8,8 @@ export default {
      * @returns {Promise}
      */
     getStarPage(reposName, page) {
-        if(page == 1) {
-            return testStar.page1()
-        }
-        return testStar.page2()
+        let url = `/repos/${reposName}/stargazers?page=${page}&per_page=${config.itemPerPage}`
+        console.log("url", url)
+        return ApiBuilder().get(url)
     }
 }

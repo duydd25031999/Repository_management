@@ -1,4 +1,4 @@
-import testUser from "./testUser"
+import ApiBuilder from "./ApiBuilder"
 export default {
     /**
      * get user by username
@@ -6,6 +6,6 @@ export default {
      * @returns {Promise}
      */
     getUser(username) {
-        return testUser.user()
+        return ApiBuilder().get(`users/${username}`)
     }
 }

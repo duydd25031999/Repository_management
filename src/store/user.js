@@ -30,12 +30,21 @@ export default {
          * @param {String} username 
          * @returns {Promise}
          */
-        getUser: (context, username) => {
-            let process = userApi.getUser(username).then(response => {
-                let user = new User(response)
+        getUser: async (context, username) => {
+            context.commit("loading/LOAD_API", undefined, { root: true })
+
+            /**@type {Promise} */
+            let api = userApi.getUser(username)
+            let process =  api.then(response => {
+                let user = new User(response.data)
                 context.commit("repository/SET_TOTAL_REPOS", user.totalRepos, { root: true })
                 context.state.hasUser = true
                 context.state.user = user
+            })
+
+            //when finish api (success or not) => close loading
+            process.finally(() => {
+                context.commit("loading/FINISH_API", undefined, { root: true })
             })
             return process
         }

@@ -50,19 +50,23 @@ export default {
          * @param {Array<Repository>} context.state.repositories : state of  this module
          * @returns {Promise}
          */
-        getRepositoriesByPage: (context) => {
+        getRepositoriesByPage: async (context) => {
             if(context.getters["isLastPage"]) {
                 return new Promise();
             }
             let username = context.rootGetters["user/login"]
             let nextPage = context.state.page + 1
+            
             /**@type {Array<Repository>} : buffer array to hold repos from response*/
             let bufferArr = []
 
-            let process = repositoryApi.getRepoPage(username, nextPage).then(response => {
+            context.commit("loading/LOAD_API", undefined, { root: true })
+
+            let api = repositoryApi.getRepoPage(username, nextPage)
+            let process =  api.then(response => {
                 //get repo then add to buffer                
-                if(response) {
-                    response.forEach(item => {
+                if(response.data) {
+                    response.data.forEach(item => {
                         let repository = new Repository(item)
                         bufferArr.push(repository)
                     })
@@ -70,6 +74,11 @@ export default {
                 //after successful, add buffter to repositories
                 context.state.repositories = _.concat(context.state.repositories, bufferArr)
                 context.state.page++;
+            })
+
+            //when finish api (success or not) => close loading
+            process.finally(() => {
+                context.commit("loading/FINISH_API", undefined, { root: true })
             })
             return process
         }
