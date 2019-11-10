@@ -8,11 +8,12 @@ node : 10.16.1
 ```
 
 ## Project setup
+### 1. Setup dependencies for projects
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### 2. Compiles and hot-reloads for development
 ```
 npm run serve
 ```
