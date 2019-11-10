@@ -1,9 +1,15 @@
 <template>
-    <div class="star-list">
-        <template v-for="i in 10">
-             <StargazerMeta :key="'star-' + i"/>
+    <div v-if="hasStar" class="star-list">
+        <template v-for="(item, index) in repository.stargazers">
+             <StargazerMeta :stargazer="item" :index="index + 1" :key="item.id"/>
         </template>
-        <v-btn block text :disabled="disabledBtn">Load More Stargazers</v-btn>
+        <v-btn 
+            v-if="canAddMoreStar" 
+            block 
+            text 
+            :disabled="disabledBtn"
+            @click="getNextStarPage()"
+        >Load More Stargazers</v-btn>
     </div>
 </template>
 
@@ -14,11 +20,30 @@ export default {
     components : {
         StargazerMeta
     },
-    computed: {
-      disabledBtn() {
-          return this.$store.getters["loading/isLoading"]; 
-      }  
+    props: {
+        repository: Object
     },
+    computed: {
+        /**@returns {Boolean} */
+        disabledBtn() {
+            return this.$store.getters["loading/isLoading"]; 
+        },
+        /**@returns {Boolean} */
+        canAddMoreStar() {
+            return this.repository.stargazers.length < this.repository.totalStargazers
+        },
+        /**@returns {Boolean} */
+        hasStar() {
+            return this.repository.stargazers.length > 0
+        }
+    },
+    methods: {
+        async getNextStarPage() {
+            console.log("before", this.repository)
+            await this.$store.dispatch("stargazer/getStargazersByPage", this.repository)
+            console.log("after", this.repository)
+        }  
+    }
 }
 </script>
 

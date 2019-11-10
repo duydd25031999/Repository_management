@@ -4,36 +4,38 @@ export default {
     namespaced: true,
     state: {
         /**@type {User} */
-        user: {}
+        user: {},
+        /**@type {Boolean} */
+        hasUser: false
     },
     getters: {
-        /**
-         * @param {Object} state
-         * @param {User} state.user
-         * @returns {User} 
-         */
+        /**@returns {User} */
         user: state => state.user,
         /**
-         * @param {Object} state
-         * @param {User} state.user
+         * @param {Object} state @param {User} state.user
          * @returns {String} 
          */
-        username: state => state.user.name
+        username: state => state.user.name,
+         /**
+         * @param {Object} state @param {User} state.user
+         * @returns {String} 
+         */
+        login: state => state.user.login,
+        /** @returns {Boolean} */
+        hasUser: state => state.hasUser
     },
     mutations: {},
     actions: {
         /**
-         * @param {Object} context : this module
-         * @param {Object} context.state : state of this module
-         * @param {User} context.state.user
          * @param {String} username 
          * @returns {Promise}
          */
         getUser: (context, username) => {
             let process = userApi.getUser(username).then(response => {
                 let user = new User(response)
+                context.commit("repository/SET_TOTAL_REPOS", user.totalRepos, { root: true })
+                context.state.hasUser = true
                 context.state.user = user
-                context.commit("repository/SET_TOTAL_REPOS", user.totalRepos)
             })
             return process
         }

@@ -1,5 +1,6 @@
 import stargazerApi from '../api/stargarzerApi'
 import Repository from '../entities/Repository';
+import Stargazer from '../entities/Stargazer'
 
 
 export default {
@@ -14,13 +15,21 @@ export default {
          * @returns {Promise}
          */
         getStargazersByPage: (context, repository) => {
+            if(repository.isLastPage) {
+                return new Promise()
+            }
+            /**@type {Array<Stargazer>} */
+            let bufferArr = []
+
             let process = stargazerApi.getStarPage(repository.full_name, repository.nextPage).then(response => {
                 if(response) {
                     response.forEach(item => {
-                        repository.addStargazer(item)
+                        let stargarzer = new Stargazer(item)
+                        bufferArr.push(stargarzer)
                     })
                 }
-                repository.stargazersPage++;
+                console.log("getStargazersByPage", bufferArr)
+                repository.addStargazerPage(bufferArr)
             })
             return process
         }

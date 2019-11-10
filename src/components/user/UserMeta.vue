@@ -1,16 +1,32 @@
 <template>
-    <v-layout row class="user-meta">
-        <v-flex xs6>freeCodeCamp</v-flex>
-        <v-flex xs3>total : 125</v-flex>
-        <v-flex xs3>seen : 30</v-flex>
+    <v-layout v-if="hasUser" row class="user-meta">
+        <v-flex xs6>{{ username }}</v-flex>
+        <v-flex xs3>total : {{ totalRepo }}</v-flex>
+        <v-flex xs3>seen : {{ seenRepo }}</v-flex>
     </v-layout>
 </template>
 
 <script>
 export default {
-    data: () => ({
-
-    })
+    data: () => ({}),
+    computed: {
+        /**@returns {Boolean} */
+        hasUser(){
+            return this.$store.getters["user/hasUser"]
+        },
+        /**@returns {String} */
+        username() {
+            return this.$store.getters["user/username"]
+        },
+        /**@returns {Number} */
+        totalRepo() {
+            return this.$store.getters["repository/totalRepo"]
+        },
+        /**@returns {Number} */
+        seenRepo() {
+            return this.$store.getters["repository/noRepo"]
+        }
+    }
 }
 </script>
 

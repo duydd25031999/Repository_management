@@ -26,7 +26,7 @@ export default {
             email: null,
             hireable: null,
             bio: null,
-            public_repos: 4,
+            public_repos: 41,
             public_gists: 0,
             followers: 0,
             following: 0,

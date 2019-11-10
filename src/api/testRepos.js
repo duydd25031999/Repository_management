@@ -76,7 +76,7 @@ export default {
               svn_url: 'https://github.com/fabpot/api-pack',
               homepage: null,
               size: 17,
-              stargazers_count: 3,
+              stargazers_count: 45,
               watchers_count: 3,
               language: null,
               has_issues: false,

@@ -1,7 +1,7 @@
 <template>
     <div class="repo-item">
-        <RepositoryMeta/>
-        <StargazersList/>
+        <RepositoryMeta :repository="repository" :index="index" />
+        <StargazersList :repository="repository" />
     </div>
 </template>
 
@@ -12,6 +12,10 @@ export default {
     components: {
         RepositoryMeta,
         StargazersList
+    },
+    props: {
+        repository: Object,
+        index: Number
     }
 }
 </script>
