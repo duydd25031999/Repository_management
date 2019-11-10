@@ -6,7 +6,8 @@
         <v-btn 
             v-if="canAddMoreStar" 
             block 
-            text 
+            text
+            :loading="repository.stargazersLoading"
             :disabled="disabledBtn"
             @click="getNextStarPage()"
         >Load More Stargazers</v-btn>
@@ -39,9 +40,7 @@ export default {
     },
     methods: {
         async getNextStarPage() {
-            console.log("before", this.repository)
             await this.$store.dispatch("stargazer/getStargazersByPage", this.repository)
-            console.log("after", this.repository)
         }  
     }
 }

@@ -1,4 +1,5 @@
-import ApiBuilder from './ApiBuilder'
+import Api from './Api'
+import config from './config'
 
 export default {
     /**
@@ -8,6 +9,7 @@ export default {
      * @returns {Promise}
      */
     getRepoPage(userName, page) {
-        return ApiBuilder().get(`users/${userName}/repos?page=${page}&per_page=30`)
+        let url = `users/${userName}/repos?page=${page}&per_page=${config.itemPerPage}`
+        return Api.sendGetApi(url)
     }
 }

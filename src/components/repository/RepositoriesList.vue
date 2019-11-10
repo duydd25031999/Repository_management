@@ -11,8 +11,9 @@
             v-if="canAddMoreRepo" 
             block 
             :disabled="disabledBtn"
+            :loading="repoIsLoading"
             @click="getNextRepoPage()"
-        >Load More Repositories</v-btn>
+        >Load more</v-btn>
     </div>
 </template>
 
@@ -39,6 +40,10 @@ export default {
         /**@returns {Boolen} */
         canAddMoreRepo() {
             return !this.$store.getters["repository/isLastPage"]
+        },
+        /**@returns {Boolen} */
+        repoIsLoading() {
+            return this.$store.getters["repository/isLoading"]
         }
     },
     methods: {

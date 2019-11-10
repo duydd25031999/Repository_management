@@ -10,7 +10,9 @@ export default {
         /**@type {Array<Repository>} :  List Repositories */
         repositories: [],
         /**@type {Number} : current page of repo */
-        page: 0
+        page: 0,
+        /**@type {Boolean} : flag loading repo */
+        loading: false
     },
     getters: {
         /**@returns {Array<Repository>} */
@@ -28,7 +30,9 @@ export default {
          */
         isLastPage: state => {
             return state.repositories.length >= state.totalRepos
-        }
+        },
+        /**@returns {Boolean} */
+        isLoading: state => state.loading
     },
     mutations: {
         /**
@@ -61,6 +65,7 @@ export default {
             let bufferArr = []
 
             context.commit("loading/LOAD_API", undefined, { root: true })
+            context.state.loading = true
 
             let api = repositoryApi.getRepoPage(username, nextPage)
             let process =  api.then(response => {
@@ -79,6 +84,7 @@ export default {
             //when finish api (success or not) => close loading
             process.finally(() => {
                 context.commit("loading/FINISH_API", undefined, { root: true })
+                context.state.loading = false
             })
             return process
         }

@@ -1,4 +1,4 @@
-import ApiBuilder from "./ApiBuilder"
+import Api from "./Api"
 export default {
     /**
      * get user by username
@@ -6,6 +6,7 @@ export default {
      * @returns {Promise}
      */
     getUser(username) {
-        return ApiBuilder().get(`users/${username}`)
+        let url = `users/${username}`
+        return Api.sendGetApi(url)
     }
 }

@@ -24,7 +24,9 @@ export default {
     },
     methods: {
         async getUser() {
-            await this.$store.dispatch("user/getUser", this.txtSearch)
+            let text = this.txtSearch
+            // let text = "freeCodeCamp"
+            await this.$store.dispatch("user/getUser", text)
             this.$store.commit("repository/CLEAR_PAGE")
             await this.$store.dispatch("repository/getRepositoriesByPage")
         }

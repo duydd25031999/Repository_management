@@ -1,4 +1,4 @@
-import ApiBuilder from './ApiBuilder'
+import Api from './Api'
 import config from './config'
 export default {
     /**
@@ -9,7 +9,6 @@ export default {
      */
     getStarPage(reposName, page) {
         let url = `/repos/${reposName}/stargazers?page=${page}&per_page=${config.itemPerPage}`
-        console.log("url", url)
-        return ApiBuilder().get(url)
+        return Api.sendGetApi(url)
     }
 }

@@ -22,6 +22,7 @@ export default {
             let bufferArr = []
 
             context.commit("loading/LOAD_API", undefined, { root: true })
+            repository.stargazersLoading = true;
 
             let api = stargazerApi.getStarPage(repository.full_name, repository.nextPage)
             let process =  api.then(response => {
@@ -37,6 +38,7 @@ export default {
             //when finish api (success or not) => close loading
             process.finally(() => {
                 context.commit("loading/FINISH_API", undefined, { root: true })
+                repository.stargazersLoading = false;
             })
             return process
         }

@@ -27,6 +27,9 @@ export default class Repository {
 
         /**@type {Array<Stargazer>} list of stargazers */
         this.stargazers = []
+
+         /**@type {Boolean} : is loading stargazers of this repo*/
+         this.stargazersLoading = false;
     }
 
     /**
@@ -74,6 +77,7 @@ export default class Repository {
      */
     clearPage() {
         this.stargazersPage = 0;
+        this.stargazers = []
     }
 
     /**
