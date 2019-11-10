@@ -2,6 +2,7 @@
     <v-layout row class="ma-0 pa-0">
         <v-text-field
             placeholder="Input Github Account"
+            @change="getUser()"
             v-model="txtSearch"
         ></v-text-field>
         <v-btn :disabled="disableBtn" text icon @click="getUser()">
