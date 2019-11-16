@@ -3,11 +3,7 @@
         <v-flex xs6>({{ index }}) : {{ repository.name }}</v-flex>
         <v-flex xs3>stargazers : {{ repository.totalStargazers }}</v-flex>
         <v-flex xs3>
-            <v-btn 
-                :disabled="disableBtn" 
-                @click="listStar()"
-                :loading="repository.stargazersLoading"
-            >List stargazers</v-btn>
+            <v-btn :disabled="disableBtn" @click="listStar()">List stargazers</v-btn>
         </v-flex>
     </v-layout>
 </template>
