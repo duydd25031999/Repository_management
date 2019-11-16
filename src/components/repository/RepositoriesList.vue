@@ -46,9 +46,7 @@ export default {
             return this.$store.getters["repository/isLoading"]
         }
     },
-    created() {
-        this.$store.commit("repository/INIT_LIST")
-    },
+    created() {},
     methods: {
         async getNextRepoPage() {
             await this.$store.dispatch("repository/getRepositoriesByPage")
